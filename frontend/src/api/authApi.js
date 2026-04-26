@@ -1,22 +1,18 @@
-import API from "./axios";
+import api from "./axios";
 
-// 1. Get CSRF Cookie
-export const getCsrfCookie = async () => {
-    return API.get("/sanctum/csrf-cookie");
+export const register = async (data) => {
+    await api.get('/sanctum/csrf-cookie');
+    const response = await api.post('/api/register', data);
+    return response.data;
 };
 
-// 2. Login
 export const login = async (data) => {
-    await getCsrfCookie(); // 🔥 must be called first
-    return API.post("/login", data);
+    await api.get('/sanctum/csrf-cookie');
+    const response = await api.post('/api/login', data);
+    return response.data;
 };
 
-// 3. Logout
 export const logout = async () => {
-    return API.post("/logout");
-};
-
-// 4. Get Authenticated User
-export const getUser = async () => {
-    return API.get("/api/user");
+    const response = await api.post('/api/logout');
+    return response.data;
 };
