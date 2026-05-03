@@ -19,21 +19,22 @@ function Craftsmen() {
   ];
 
   return (
-    <div className="craftsmen-page">
+   <div className="craftsmen-page">
+    
       <h1 className="craftsmen-title">Craftsmen</h1>
       <p className="craftsmen-subtitle">Browse available craftsmen</p>
 
-      {/* 👇 أهم سطر */}
       <div className="craftsmen-grid">
         {craftsmen.map((c) => (
           <div key={c.id} className="craftsmen-card">
 
             <img
               src={c.image}
-              onError={(e) =>
-                (e.target.src = "https://via.placeholder.com/150")
-              }
-              alt="craftsman"
+              alt={c.name}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://via.placeholder.com/150";
+              }}
             />
 
             <h3>{c.name}</h3>

@@ -2,8 +2,8 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(to bottom, #111, #000);
-  color: white;
+  background-color: #F5F0E6;
+  color: #3E2C23;
 }
 
 /* ====== PAGE ====== */
@@ -18,7 +18,7 @@ body {
 }
 
 .craftsmen-subtitle {
-  color: #aaa;
+  color: #5c4a3f;
   margin-bottom: 30px;
 }
 
@@ -31,12 +31,12 @@ body {
 
 /* ====== CARD ====== */
 .craftsmen-card {
-  background: #1e1e2f;
+  background: #ffffff;
   padding: 20px;
   border-radius: 15px;
   text-align: center;
   transition: 0.3s;
-  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .craftsmen-card:hover {
@@ -49,16 +49,16 @@ body {
   height: 90px;
   border-radius: 50%;
   margin-bottom: 10px;
-  border: 2px solid orange;
+  border: 2px solid #A85D20;
 }
 
 /* ====== TEXT ====== */
 .craftsmen-job {
-  color: #aaa;
+  color: #5c4a3f;
 }
 
 .craftsmen-rating {
-  color: gold;
+  color: #E67E22;
   margin: 5px 0;
 }
 
@@ -67,8 +67,8 @@ body {
   display: inline-block;
   margin-top: 10px;
   padding: 8px 15px;
-  background: orange;
-  color: black;
+  background: #A85D20;
+  color: white;
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
@@ -76,5 +76,5 @@ body {
 }
 
 .craftsmen-btn:hover {
-  background: darkorange;
+  background: #8B5E3C;
 }

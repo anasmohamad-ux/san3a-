@@ -1,15 +1,21 @@
+/* ====== RESET ====== */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 /* ====== ROOT ====== */
 #root {
   width: 100%;
   min-height: 100vh;
 }
 
-/* ====== GENERAL ====== */
+/* ====== GENERAL (MATCH HOME PAGE) ====== */
 body {
-  margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(to bottom, #111, #000);
-  color: white;
+  background-color: #F5F0E6;
+  color: #3E2C23;
 }
 
 /* ===================== */
@@ -18,51 +24,73 @@ body {
 
 .craftsman-page {
   min-height: 100vh;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
+  background-color: #F5F0E6;
 }
 
+.craftsman-container {
+  width: 600px;
+}
+
+/* Card */
 .craftsman-card {
-  background: #1e1e2f;
+  background: #ffffff;
   padding: 30px;
   border-radius: 15px;
-  width: 100%;
-  max-width: 700px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.6);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   transition: 0.3s;
 }
 
 .craftsman-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+}
+
+/* Back Button */
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 10px 18px;
+  background: #A85D20;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  background: #8B5E3C;
+  transform: scale(1.05);
 }
 
 /* Header */
 .craftsman-header {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+  text-align: center;
 }
 
 .craftsman-header img {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  border: 3px solid orange;
-}
-
-.craftsman-info h2 {
-  margin: 0;
+  margin-bottom: 15px;
+  border: 3px solid #A85D20;
 }
 
 .craftsman-job {
-  color: #aaa;
+  color: #5c4a3f;
   margin: 5px 0;
 }
 
-.craftsman-stars {
-  color: gold;
+.craftsman-rating {
+  color: #E67E22;
   font-weight: bold;
 }
 
@@ -72,45 +100,38 @@ body {
 }
 
 .craftsman-section p {
-  color: #ccc;
+  color: #5c4a3f;
 }
 
 /* Services */
 .craftsman-services {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-
-.craftsman-service-card {
-  background: #2a2a3d;
-  padding: 10px 15px;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-
-.craftsman-service-card:hover {
-  background: orange;
-  color: black;
+  padding-left: 20px;
+  color: #5c4a3f;
 }
 
 /* Button */
 .craftsman-btn {
   margin-top: 30px;
   width: 100%;
-  padding: 15px;
-  background: orange;
+  padding: 14px;
+  background: #A85D20;
   border: none;
   border-radius: 10px;
-  font-size: 16px;
-  font-weight: bold;
   cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
   transition: 0.3s;
 }
 
 .craftsman-btn:hover {
-  background: darkorange;
+  background: #8B5E3C;
+}
+
+/* Not Found */
+.not-found {
+  text-align: center;
+  color: #3E2C23;
 }
 
 /* ===================== */
@@ -120,6 +141,12 @@ body {
 .craftsmen-page {
   padding: 40px;
   min-height: 100vh;
+  width: 100%;
+  background-color: #F5F0E6;
+}
+
+.craftsmen-container {
+  max-width: 1200px;
 }
 
 .craftsmen-title {
@@ -127,7 +154,7 @@ body {
 }
 
 .craftsmen-subtitle {
-  color: #aaa;
+  color: #5c4a3f;
   margin-bottom: 30px;
 }
 
@@ -140,16 +167,16 @@ body {
 
 /* Card */
 .craftsmen-card {
-  background: #1e1e2f;
+  background: #ffffff;
   padding: 20px;
   border-radius: 15px;
   text-align: center;
   transition: 0.3s;
-  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .craftsmen-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
 }
 
 /* Image */
@@ -158,16 +185,16 @@ body {
   height: 90px;
   border-radius: 50%;
   margin-bottom: 10px;
-  border: 2px solid orange;
+  border: 2px solid #A85D20;
 }
 
 /* Text */
 .craftsmen-job {
-  color: #aaa;
+  color: #5c4a3f;
 }
 
 .craftsmen-rating {
-  color: gold;
+  color: #E67E22;
   margin: 5px 0;
 }
 
@@ -176,8 +203,8 @@ body {
   display: inline-block;
   margin-top: 10px;
   padding: 8px 15px;
-  background: orange;
-  color: black;
+  background: #A85D20;
+  color: white;
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
@@ -185,7 +212,7 @@ body {
 }
 
 .craftsmen-btn:hover {
-  background: darkorange;
+  background: #8B5E3C;
 }
 
 /* ===================== */
@@ -194,10 +221,6 @@ body {
 
 @media (max-width: 600px) {
   .craftsman-header {
-    flex-direction: column;
     text-align: center;
   }
-}
-.craftsmen-page {
-  background: red !important;
 }
