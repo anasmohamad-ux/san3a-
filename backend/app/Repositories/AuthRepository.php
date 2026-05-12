@@ -16,11 +16,19 @@ class AuthRepository implements AuthRepositoryInterface
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'role' => $data['role'],
+            'specialty' => $data['specialty'] ?? null,
+            'experience_years' => $data['experience_years'] ?? null,
         ]);
+
+        // handle photo upload if provided
+        if (!empty($data['photo'])) {
+            $path = $data['photo']->store('photos', 'public');
+            $user->update(['photo' => $path]);
+        }
 
         $token = $user->createToken('api-token')->plainTextToken;
 
-        return ['user' => $user, 'token' => $token];
+        return ['user' => $user->fresh(), 'token' => $token];
     }
 
     public function login(array $credentials): array

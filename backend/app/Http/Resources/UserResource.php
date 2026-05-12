@@ -16,6 +16,8 @@ class UserResource extends JsonResource
             'phone' => $this->phone,
             'bio' => $this->bio,
             'city' => $this->city,
+            'specialty' => $this->specialty,
+            'experience_years' => $this->experience_years,
             'photo' => $this->photo ? asset('storage/' . $this->photo) : null,
             'availability' => $this->availability,
             'average_rating' => $this->averageRating(),

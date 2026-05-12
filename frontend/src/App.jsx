@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 
 import Home from "./pages/Home";
@@ -9,40 +9,31 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
-import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
+    <Routes>
 
-          {/* صفحات عامة */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+      {/* Public pages */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
-          {/* Layout + حماية */}
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <MainLayout />
-              </ProtectedRoute>
-            }
-          >
-            {/* Home */}
-            <Route index element={<Home />} />
+      {/* Layout + Protection */}
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <MainLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<Home />} />
+        <Route path="/craftsmen" element={<Craftsmen />} />
+        <Route path="/craftsman/:id" element={<CraftsmanPage />} />
+        <Route path="/about" element={<About />} />
+      </Route>
 
-            {/* 👇 أهم تعديل: خليهم absolute */}
-            <Route path="/craftsmen" element={<Craftsmen />} />
-            <Route path="/craftsman/:id" element={<CraftsmanPage />} />
-
-            <Route path="/about" element={<About />} />
-          </Route>
-
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+    </Routes>
   );
 }
 

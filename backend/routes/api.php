@@ -18,6 +18,7 @@ Route::post('/password/reset', [PasswordResetController::class, 'reset']);
 
 Route::get('/services', [ServiceController::class, 'index']);
 Route::get('/users/{id}', [UserController::class, 'show']);
+Route::get('/craftsmen', [UserController::class, 'craftsmen']);
 Route::get('/craftsmen/{id}/reviews', [ReviewController::class, 'forCraftsman']);
 
 // ── Authenticated ─────────────────────────────────────────────
@@ -25,25 +26,25 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    // Profile (US-06, US-07)
+    // Profile
     Route::put('/profile', [UserController::class, 'update']);
     Route::post('/profile/photo', [UserController::class, 'updatePhoto']);
 
-    // Bookings (US-14)
+    // Bookings
     Route::get('/bookings', [BookingController::class, 'index']);
     Route::post('/bookings', [BookingController::class, 'store']);
 
-    // Messaging (US-19, US-20)
+    // Messaging
     Route::post('/messages', [MessageController::class, 'send']);
     Route::get('/messages/{userId}', [MessageController::class, 'conversation']);
     Route::get('/inbox', [MessageController::class, 'inbox']);
 
-    // Notifications (US-21)
+    // Notifications
     Route::get('/notifications', [NotificationController::class, 'index']);
-    Route::put('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
     Route::put('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
+    Route::put('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
 
-    // Reviews (US-16, US-17)
+    // Reviews
     Route::post('/reviews', [ReviewController::class, 'store']);
 
     // ── Craftsman only ────────────────────────────────────────

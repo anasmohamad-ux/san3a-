@@ -6,6 +6,7 @@ use App\Contracts\UserRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -57,5 +58,30 @@ class UserController extends Controller
         );
 
         return new UserResource($user);
+    }
+
+    // GET /api/craftsmen
+    public function craftsmen(Request $request)
+    {
+        $craftsmen = User::where('role', 'craftsman')
+            ->when(
+                $request->specialty,
+                fn($q, $v) => $q->where('specialty', 'like', "%$v%")
+            )
+            ->when(
+                $request->city,
+                fn($q, $v) => $q->where('city', $v)
+            )
+            ->when(
+                $request->search,
+                fn($q, $v) => $q->where(
+                    fn($q) => $q->where('name', 'like', "%$v%")
+                        ->orWhere('specialty', 'like', "%$v%")
+                )
+            )
+            ->withAvg('reviewsReceived', 'rating')
+            ->paginate(12);
+
+        return UserResource::collection($craftsmen);
     }
 }

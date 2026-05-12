@@ -20,6 +20,8 @@ class User extends Authenticatable
         'bio',
         'photo',
         'city',
+        'specialty',
+        'experience_years',
         'availability',
     ];
 
