@@ -72,7 +72,7 @@ select {
   box-sizing: border-box;
   margin-bottom: 10px;
   text-align: center;
-  transition: 0.3s;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 input:focus,
@@ -99,7 +99,7 @@ input::placeholder {
   font-size: 17px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .register-btn:hover {
@@ -124,13 +124,18 @@ input::placeholder {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 20px;
+  align-items: flex-start;
+  /* FIX 2: was "center" — prevented top clipping on tall cards */
+  padding: 40px 20px;
+  /* FIX 2: added top padding to replace vertical centering */
   background-color: #F5F0E6;
 }
 
 .craftsman-container {
   width: 600px;
+  max-width: 100%;
+  isolation: isolate;
+  /* creates its own stacking context — prevents repaints bleeding in */
 }
 
 /* Card */
@@ -139,11 +144,16 @@ input::placeholder {
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  transition: 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  /* forces GPU compositing on load — stops paint flicker */
 }
 
 .craftsman-card:hover {
   transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
 }
 
 /* Back Button */
@@ -160,7 +170,7 @@ input::placeholder {
   cursor: pointer;
   font-weight: bold;
   font-size: 14px;
-  transition: 0.3s;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .back-btn:hover {
@@ -179,6 +189,11 @@ input::placeholder {
   border-radius: 50%;
   margin-bottom: 15px;
   border: 3px solid #A85D20;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  object-fit: cover;
+  /* prevents layout jump if image aspect ratio differs */
 }
 
 .craftsman-job {
@@ -218,7 +233,8 @@ input::placeholder {
   font-weight: bold;
   font-size: 16px;
   color: white;
-  transition: 0.3s;
+  transition: background-color 0.3s ease;
+  /* FIX 3: was "0.3s" (all) — caused layout jank */
 }
 
 .craftsman-btn:hover {
@@ -275,7 +291,7 @@ input::placeholder {
   font-size: 16px;
   background: white;
   outline: none;
-  transition: 0.3s;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
@@ -301,12 +317,13 @@ input::placeholder {
   padding: 25px;
   border-radius: 18px;
   text-align: center;
-  transition: 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .craftsmen-card:hover {
   transform: translateY(-8px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
 }
 
 /* ===== IMAGE ===== */
@@ -351,7 +368,7 @@ input::placeholder {
   border-radius: 10px;
   text-decoration: none;
   font-weight: bold;
-  transition: 0.3s;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .craftsmen-btn:hover {

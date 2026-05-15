@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../api/axios";
 
+// Inline SVG placeholder — no external request, no delay, no layout shift
+const PLACEHOLDER = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Crect width='120' height='120' rx='60' fill='%23e8d5c4'/%3E%3Ccircle cx='60' cy='45' r='22' fill='%23a85d20'/%3E%3Cellipse cx='60' cy='95' rx='35' ry='25' fill='%23a85d20'/%3E%3C/svg%3E`;
+
 function CraftsmanPage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -17,7 +20,30 @@ function CraftsmanPage() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <p style={{ textAlign: "center", marginTop: "60px" }}>Loading...</p>;
+  if (loading) return (
+    // Skeleton that matches card dimensions — prevents layout shift on load
+    <div className="craftsman-page">
+      <div className="craftsman-container">
+        <div className="craftsman-card" style={{ minHeight: 420 }}>
+          <div style={{
+            width: 120, height: 120, borderRadius: "50%",
+            background: "#e8d5c4", margin: "0 auto 15px",
+            animation: "pulse 1.4s ease-in-out infinite"
+          }} />
+          {[180, 120, 90].map((w, i) => (
+            <div key={i} style={{
+              height: 16, width: w, borderRadius: 8,
+              background: "#e8d5c4", margin: "10px auto",
+              animation: "pulse 1.4s ease-in-out infinite",
+              animationDelay: `${i * 0.15}s`
+            }} />
+          ))}
+          <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }`}</style>
+        </div>
+      </div>
+    </div>
+  );
+
   if (!craftsman) return <h2 className="not-found">Craftsman not found</h2>;
 
   return (
@@ -31,11 +57,23 @@ function CraftsmanPage() {
         <div className="craftsman-card">
 
           <div className="craftsman-header">
-            <img
-              src={craftsman.photo || "https://via.placeholder.com/120"}
-              alt={craftsman.name}
-              onError={(e) => { e.target.src = "https://via.placeholder.com/120"; }}
-            />
+            {/* Fixed-size wrapper — reserves space before image loads, stops layout jump */}
+            <div style={{ width: 120, height: 120, margin: "0 auto 15px" }}>
+              <img
+                src={craftsman.photo || PLACEHOLDER}
+                alt={craftsman.name}
+                width={120}
+                height={120}
+                onError={(e) => { e.target.src = PLACEHOLDER; }}
+                style={{
+                  width: 120, height: 120,
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                  border: "3px solid #A85D20",
+                  display: "block"
+                }}
+              />
+            </div>
             <h2>{craftsman.name}</h2>
             <p className="craftsman-job">{craftsman.specialty || "Craftsman"}</p>
             <p className="craftsman-rating">⭐ {craftsman.average_rating || "No ratings yet"}</p>
