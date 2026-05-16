@@ -29,10 +29,20 @@ export const AuthProvider = ({ children }) => {
     };
 
     const logout = async () => {
-        await api.post("/api/logout");
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        setUser(null);
+        try {
+            const token = localStorage.getItem("token");
+            await api.post("/api/logout", {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        } catch (err) {
+            console.error("Logout error:", err);
+        } finally {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            setUser(null);
+        }
     };
 
     return (
