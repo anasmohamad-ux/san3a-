@@ -1,6 +1,159 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Home() {
+  const { user } = useAuth();
+  
+  if (user?.role === "client") {
+  return (
+    <div
+      style={{
+        padding: "60px",
+        backgroundColor: "#F5F0E6",
+        minHeight: "80vh",
+      }}
+    >
+      <h1 style={{ color: "#3E2C23", marginBottom: "15px" }}>
+        Welcome back, {user.name} 👋
+      </h1>
+
+      <p
+        style={{
+          color: "#5c4a3f",
+          fontSize: "18px",
+          marginBottom: "35px",
+        }}
+      >
+        Find craftsmen, manage your requests, and save your favorites.
+      </p>
+
+      <div
+        style={{
+          display: "flex",
+          gap: "25px",
+          flexWrap: "wrap",
+        }}
+      >
+
+        <Link to="/craftsmen" style={{ textDecoration: "none" }}>
+          <div style={dashboardCard}>
+            <h2>🔍 Browse Craftsmen</h2>
+            <p>
+              Explore available craftsmen and view their profiles.
+            </p>
+          </div>
+        </Link>
+
+        <Link to="/client-requests" style={{ textDecoration: "none" }}>
+          <div style={dashboardCard}>
+            <h2>📋 My Requests</h2>
+            <p>
+              View your service requests and track their status.
+            </p>
+          </div>
+        </Link>
+
+        <Link to="/favorites" style={{ textDecoration: "none" }}>
+          <div style={dashboardCard}>
+            <h2>❤️ Favorite Craftsmen</h2>
+            <p>
+              Save and manage your favorite craftsmen.
+            </p>
+          </div>
+        </Link>
+
+      </div>
+    </div>
+  );
+}
+if (user?.role === "craftsman") {
+  return (
+    <div
+      style={{
+        padding: "60px",
+        backgroundColor: "#F5F0E6",
+        minHeight: "80vh",
+      }}
+    >
+      <h1 style={{ color: "#3E2C23", marginBottom: "15px" }}>
+        Welcome back, {user.name} 👋
+      </h1>
+
+      <p
+        style={{
+          color: "#5c4a3f",
+          fontSize: "18px",
+          marginBottom: "35px",
+        }}
+      >
+        Manage your profile, services, and client requests easily.
+      </p>
+
+      <div
+        style={{
+          display: "flex",
+          gap: "25px",
+          flexWrap: "wrap",
+        }}
+      >
+        <Link to="/profile" style={{ textDecoration: "none" }}>
+  <div style={dashboardCard}>
+    <h2>🧑‍🔧 My Profile</h2>
+
+    <p>
+      Update your specialty, city, experience,
+      and personal information.
+    </p>
+  </div>
+</Link>
+
+        <Link to="/requests" style={{ textDecoration: "none" }}>
+  <div
+    style={{
+      ...dashboardCard,
+      cursor: "pointer",
+      transition: "0.3s",
+    }}
+    onMouseEnter={(e) =>
+      (e.currentTarget.style.transform = "translateY(-5px)")
+    }
+    onMouseLeave={(e) =>
+      (e.currentTarget.style.transform = "translateY(0)")
+    }
+  >
+    <h2>📩 Service Requests</h2>
+
+    <p>
+      View client requests and manage incoming jobs professionally.
+    </p>
+  </div>
+</Link>
+
+        <Link to="/ratings" style={{ textDecoration: "none" }}>
+  <div
+    style={{
+      ...dashboardCard,
+      cursor: "pointer",
+      transition: "0.3s",
+    }}
+    onMouseEnter={(e) =>
+      (e.currentTarget.style.transform = "translateY(-5px)")
+    }
+    onMouseLeave={(e) =>
+      (e.currentTarget.style.transform = "translateY(0)")
+    }
+  >
+    <h2>⭐ My Rating</h2>
+
+    <p>
+      Track your ratings and reviews from clients.
+    </p>
+  </div>
+</Link>
+      </div>
+    </div>
+  );
+}
   const services = [
     { title: "Electrical Services", icon: "⚡" },
     { title: "Carpentry", icon: "🪚" },
@@ -256,5 +409,14 @@ function Home() {
     </div>
   );
 }
+const dashboardCard = {
+  backgroundColor: "white",
+  padding: "25px",
+  borderRadius: "18px",
+  width: "280px",
+  boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+  color: "#3E2C23",
+  lineHeight: "1.6",
+};
 
 export default Home;

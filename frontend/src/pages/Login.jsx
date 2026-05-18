@@ -28,6 +28,22 @@ function Login() {
   return (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh", backgroundColor: "#F5F0E6" }}>
       <div style={{ width: "300px", padding: "25px", borderRadius: "10px", backgroundColor: "white", boxShadow: "0 0 15px rgba(0,0,0,0.1)" }}>
+        <div style={{ marginBottom: "20px" }}>
+  <button
+    onClick={() => navigate("/")}
+    style={{
+      backgroundColor: "#d66d1d",
+      color: "white",
+      border: "none",
+      padding: "8px 16px",
+      borderRadius: "8px",
+      cursor: "pointer",
+      fontWeight: "bold",
+    }}
+  >
+    ← Back
+  </button>
+</div>
 
         <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Login</h2>
 

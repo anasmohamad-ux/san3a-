@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../api/axios";
 
 // Inline SVG placeholder — no external request, no delay, no layout shift
@@ -8,6 +8,7 @@ const PLACEHOLDER = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
 const cache = { data: null };
 
 function Craftsmen() {
+  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [craftsmen, setCraftsmen] = useState(cache.data || []);
   const [loading, setLoading] = useState(!cache.data);
@@ -33,6 +34,31 @@ function Craftsmen() {
     <div className="craftsmen-page">
       <h1 className="craftsmen-title">Craftsmen</h1>
       <p className="craftsmen-subtitle">Browse available craftsmen</p>
+      <div
+  style={{
+    display: "flex",
+    justifyContent: "flex-start",
+    marginTop: "-10px",
+    marginBottom: "25px",
+  }}
+>
+  <button
+    onClick={() => navigate("/")}
+    style={{
+      backgroundColor: "#8B5E3C",
+      color: "white",
+      border: "none",
+      padding: "10px 20px",
+      borderRadius: "10px",
+      cursor: "pointer",
+      fontWeight: "bold",
+      fontSize: "15px",
+      boxShadow: "0 5px 15px rgba(0,0,0,0.15)",
+    }}
+  >
+    ← Back to Home
+  </button>
+</div>
 
       <div className="search-container">
         <input

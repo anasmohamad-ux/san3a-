@@ -134,6 +134,7 @@ const imageStyle = {
 
 const cardStyle = {
   backgroundColor: "white",
+  color: "#3E2C23",
   padding: "25px",
   borderRadius: "16px",
   boxShadow: "0 5px 15px rgba(0,0,0,0.1)",
