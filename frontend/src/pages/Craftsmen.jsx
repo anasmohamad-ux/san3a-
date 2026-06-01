@@ -2,63 +2,67 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../api/axios";
 
-// Inline SVG placeholder — no external request, no delay, no layout shift
-const PLACEHOLDER = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Crect width='150' height='150' rx='75' fill='%23e8d5c4'/%3E%3Ccircle cx='75' cy='55' r='28' fill='%23a85d20'/%3E%3Cellipse cx='75' cy='118' rx='44' ry='32' fill='%23a85d20'/%3E%3C/svg%3E`;
-
-const cache = { data: null };
+const PLACEHOLDER = "https://via.placeholder.com/110";
 
 function Craftsmen() {
   const navigate = useNavigate();
+
   const [search, setSearch] = useState("");
-  const [craftsmen, setCraftsmen] = useState(cache.data || []);
-  const [loading, setLoading] = useState(!cache.data);
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [craftsmen, setCraftsmen] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Debounce: wait 400ms after user stops typing
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(search), 400);
+    return () => clearTimeout(timer);
+  }, [search]);
 
   useEffect(() => {
-    if (cache.data) return;
+    const fetchCraftsmen = async () => {
+      setLoading(true);
+      try {
+        const res = await api.get(`/api/craftsmen?search=${debouncedSearch}`);
+        setCraftsmen(res.data.data || []);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    api.get("/api/craftsmen")
-      .then(res => {
-        cache.data = res.data.data || [];
-        setCraftsmen(cache.data);
-      })
-      .catch(err => console.error(err))
-      .finally(() => setLoading(false));
-  }, []);
-
-  const filtered = craftsmen.filter(c =>
-    c.name.toLowerCase().includes(search.toLowerCase()) ||
-    (c.specialty && c.specialty.toLowerCase().includes(search.toLowerCase()))
-  );
+    fetchCraftsmen();
+  }, [debouncedSearch]);
 
   return (
     <div className="craftsmen-page">
       <h1 className="craftsmen-title">Craftsmen</h1>
       <p className="craftsmen-subtitle">Browse available craftsmen</p>
       <div
-  style={{
-    display: "flex",
-    justifyContent: "flex-start",
-    marginTop: "-10px",
-    marginBottom: "25px",
-  }}
->
-  <button
-    onClick={() => navigate("/")}
-    style={{
-      backgroundColor: "#8B5E3C",
-      color: "white",
-      border: "none",
-      padding: "10px 20px",
-      borderRadius: "10px",
-      cursor: "pointer",
-      fontWeight: "bold",
-      fontSize: "15px",
-      boxShadow: "0 5px 15px rgba(0,0,0,0.15)",
-    }}
-  >
-    ← Back to Home
-  </button>
-</div>
+        style={{
+          display: "flex",
+          justifyContent: "flex-start",
+          marginTop: "-10px",
+          marginBottom: "25px",
+        }}
+      >
+        <button
+          onClick={() => navigate("/")}
+          style={{
+            backgroundColor: "#8B5E3C",
+            color: "white",
+            border: "none",
+            padding: "10px 20px",
+            borderRadius: "10px",
+            cursor: "pointer",
+            fontWeight: "bold",
+            fontSize: "15px",
+            boxShadow: "0 5px 15px rgba(0,0,0,0.15)",
+          }}
+        >
+          ← Back to Home
+        </button>
+      </div>
 
       <div className="search-container">
         <input
@@ -71,33 +75,36 @@ function Craftsmen() {
       </div>
 
       {loading ? (
-        // Skeleton grid — same layout as real cards, prevents page jump on load
         <div className="craftsmen-grid">
           {[...Array(6)].map((_, i) => (
             <div key={i} className="craftsmen-card" style={{ minHeight: 280 }}>
               <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }`}</style>
-              <div style={{
-                width: 110, height: 110, borderRadius: "50%",
-                background: "#e8d5c4", margin: "0 auto 15px",
-                animation: "pulse 1.4s ease-in-out infinite"
-              }} />
-              {[140, 100, 80].map((w, j) => (
-                <div key={j} style={{
-                  height: 14, width: w, borderRadius: 8,
-                  background: "#e8d5c4", margin: "8px auto",
+              <div
+                style={{
+                  width: 110, height: 110, borderRadius: "50%",
+                  background: "#e8d5c4", margin: "0 auto 15px",
                   animation: "pulse 1.4s ease-in-out infinite",
-                  animationDelay: `${j * 0.1}s`
-                }} />
+                }}
+              />
+              {[140, 100, 80].map((w, j) => (
+                <div
+                  key={j}
+                  style={{
+                    height: 14, width: w, borderRadius: 8,
+                    background: "#e8d5c4", margin: "8px auto",
+                    animation: "pulse 1.4s ease-in-out infinite",
+                    animationDelay: `${j * 0.1}s`,
+                  }}
+                />
               ))}
             </div>
           ))}
         </div>
       ) : (
         <div className="craftsmen-grid">
-          {filtered.length > 0 ? (
-            filtered.map((c) => (
+          {craftsmen.length > 0 ? (
+            craftsmen.map((c) => (
               <div key={c.id} className="craftsmen-card">
-                {/* Fixed-size wrapper — reserves space before image loads */}
                 <div style={{ width: 110, height: 110, margin: "0 auto 15px" }}>
                   <img
                     src={c.photo || PLACEHOLDER}
@@ -113,7 +120,7 @@ function Craftsmen() {
                       borderRadius: "50%",
                       objectFit: "cover",
                       border: "3px solid #A85D20",
-                      display: "block"
+                      display: "block",
                     }}
                   />
                 </div>

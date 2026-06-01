@@ -63,7 +63,7 @@ class UserController extends Controller
     // GET /api/craftsmen
     public function craftsmen(Request $request)
     {
-        $craftsmen = User::where('role', 'craftsman')
+        $query = User::where('role', 'craftsman')
             ->when(
                 $request->specialty,
                 fn($q, $v) => $q->where('specialty', 'like', "%$v%")
@@ -79,8 +79,11 @@ class UserController extends Controller
                         ->orWhere('specialty', 'like', "%$v%")
                 )
             )
-            ->withAvg('reviewsReceived', 'rating')
-            ->paginate(12);
+            ->withAvg('reviewsReceived', 'rating');
+
+        $craftsmen = $request->search
+            ? $query->get()
+            : $query->paginate(12);
 
         return UserResource::collection($craftsmen);
     }
