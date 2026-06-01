@@ -116,9 +116,25 @@ function CraftsmanPage() {
             </div>
           )}
 
-          <button className="craftsman-btn">
-            Request Service
-          </button>
+          <div
+  style={{
+    display: "flex",
+    gap: "10px",
+    justifyContent: "center",
+    marginTop: "20px",
+  }}
+>
+  <button className="craftsman-btn">
+    Request Service
+  </button>
+
+  <button
+    className="craftsman-btn"
+    onClick={() => navigate(`/chat/${craftsman.id}`)}
+  >
+    Chat
+  </button>
+</div>
 
         </div>
       </div>
