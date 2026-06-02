@@ -14,6 +14,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Chat from "./pages/Chat";
+import Inbox from "./pages/Inbox";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path="/ratings" element={<Ratings />} />
         <Route path="/client-requests" element={<ClientRequests />} />
         <Route path="/favorites" element={<Favorites />} />
+        <Route path="/inbox" element={<Inbox />} />
         <Route path="/chat/:id" element={<Chat />} />
       </Route>
 
