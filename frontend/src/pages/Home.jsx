@@ -3,420 +3,399 @@ import { useAuth } from "../context/AuthContext";
 
 function Home() {
   const { user } = useAuth();
-  
+
   if (user?.role === "client") {
-  return (
-    <div
-      style={{
-        padding: "60px",
-        backgroundColor: "#F5F0E6",
-        minHeight: "80vh",
-      }}
-    >
-      <h1 style={{ color: "#3E2C23", marginBottom: "15px" }}>
-        Welcome back, {user.name} 👋
-      </h1>
-
-      <p
-        style={{
-          color: "#5c4a3f",
-          fontSize: "18px",
-          marginBottom: "35px",
-        }}
-      >
-        Find craftsmen, manage your requests, and save your favorites.
-      </p>
-
+    return (
       <div
         style={{
-          display: "flex",
-          gap: "25px",
-          flexWrap: "wrap",
+          background: "#F8F5EF",
+          minHeight: "100vh",
+          padding: "40px",
         }}
       >
-
-        <Link to="/craftsmen" style={{ textDecoration: "none" }}>
-          <div style={dashboardCard}>
-            <h2>🔍 Browse Craftsmen</h2>
-            <p>
-              Explore available craftsmen and view their profiles.
-            </p>
-          </div>
-        </Link>
-
-        <Link to="/client-requests" style={{ textDecoration: "none" }}>
-          <div style={dashboardCard}>
-            <h2>📋 My Requests</h2>
-            <p>
-              View your service requests and track their status.
-            </p>
-          </div>
-        </Link>
-
-        <Link to="/favorites" style={{ textDecoration: "none" }}>
-          <div style={dashboardCard}>
-            <h2>❤️ Favorite Craftsmen</h2>
-            <p>
-              Save and manage your favorite craftsmen.
-            </p>
-          </div>
-        </Link>
-
-      </div>
-    </div>
-  );
-}
-if (user?.role === "craftsman") {
-  return (
-    <div
-      style={{
-        padding: "60px",
-        backgroundColor: "#F5F0E6",
-        minHeight: "80vh",
-      }}
-    >
-      <h1 style={{ color: "#3E2C23", marginBottom: "15px" }}>
-        Welcome back, {user.name} 👋
-      </h1>
-
-      <p
-        style={{
-          color: "#5c4a3f",
-          fontSize: "18px",
-          marginBottom: "35px",
-        }}
-      >
-        Manage your profile, services, and client requests easily.
-      </p>
-
-      <div
-        style={{
-          display: "flex",
-          gap: "25px",
-          flexWrap: "wrap",
-        }}
-      >
-        <Link to="/profile" style={{ textDecoration: "none" }}>
-  <div style={dashboardCard}>
-    <h2>🧑‍🔧 My Profile</h2>
-
-    <p>
-      Update your specialty, city, experience,
-      and personal information.
-    </p>
-  </div>
-</Link>
-
-        <Link to="/requests" style={{ textDecoration: "none" }}>
-  <div
-    style={{
-      ...dashboardCard,
-      cursor: "pointer",
-      transition: "0.3s",
-    }}
-    onMouseEnter={(e) =>
-      (e.currentTarget.style.transform = "translateY(-5px)")
-    }
-    onMouseLeave={(e) =>
-      (e.currentTarget.style.transform = "translateY(0)")
-    }
-  >
-    <h2>📩 Service Requests</h2>
-
-    <p>
-      View client requests and manage incoming jobs professionally.
-    </p>
-  </div>
-</Link>
-
-        <Link to="/ratings" style={{ textDecoration: "none" }}>
-  <div
-    style={{
-      ...dashboardCard,
-      cursor: "pointer",
-      transition: "0.3s",
-    }}
-    onMouseEnter={(e) =>
-      (e.currentTarget.style.transform = "translateY(-5px)")
-    }
-    onMouseLeave={(e) =>
-      (e.currentTarget.style.transform = "translateY(0)")
-    }
-  >
-    <h2>⭐ My Rating</h2>
-
-    <p>
-      Track your ratings and reviews from clients.
-    </p>
-  </div>
-</Link>
-      </div>
-    </div>
-  );
-}
-  const services = [
-    { title: "Electrical Services", icon: "⚡" },
-    { title: "Carpentry", icon: "🪚" },
-    { title: "Plumbing", icon: "🔧" },
-    { title: "Painting", icon: "🎨" },
-    { title: "AC Services", icon: "❄️" },
-    { title: "Metal Works", icon: "🛠️" },
-  ];
-
-  return (
-    <div style={{ backgroundColor: "#F5F0E6" }}>
-      <section
-        style={{
-          minHeight: "80vh",
-          padding: "70px 60px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: "50px",
-        }}
-      >
-        <div style={{ flex: 1 }}>
-          <p style={{ color: "#A85D20", fontWeight: "bold" }}>
-            Trusted craftsmen near you
-          </p>
-
+        {/* HERO */}
+        <div
+          style={{
+            background:
+              "linear-gradient(135deg,#8B5E3C,#A85D20)",
+            borderRadius: "25px",
+            padding: "50px",
+            color: "white",
+            marginBottom: "40px",
+            boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+          }}
+        >
           <h1
             style={{
-              fontSize: "58px",
-              lineHeight: "1.1",
-              color: "#3E2C23",
-              marginBottom: "20px",
+              fontSize: "48px",
+              marginBottom: "15px",
             }}
           >
-            Your Project,
-            <br />
-            Our Craftsmen
+            Welcome back, {user.name} 👋
           </h1>
 
           <p
             style={{
               fontSize: "20px",
-              lineHeight: "1.7",
-              color: "#5c4a3f",
-              maxWidth: "520px",
-              marginBottom: "30px",
+              opacity: 0.95,
             }}
           >
-            Find skilled professionals for any service you need. Quick, easy,
-            and reliable.
+            Find trusted craftsmen and manage your services easily.
           </p>
-
-          <div style={{ display: "flex", gap: "15px", marginBottom: "35px" }}>
-            <Link
-              to="/register"
-              style={{
-                padding: "13px 28px",
-                backgroundColor: "#A85D20",
-                color: "white",
-                textDecoration: "none",
-                borderRadius: "8px",
-                fontWeight: "bold",
-              }}
-            >
-              Get Started
-            </Link>
-
-            <Link
-              to="/craftsmen"
-              style={{
-                padding: "13px 28px",
-                backgroundColor: "white",
-                color: "#8B5E3C",
-                textDecoration: "none",
-                border: "1px solid #8B5E3C",
-                borderRadius: "8px",
-                fontWeight: "bold",
-              }}
-            >
-              Browse Services
-            </Link>
-          </div>
-
-          <div style={{ display: "flex", gap: "35px" }}>
-            <div>
-              <h2 style={{ margin: 0, color: "#3E2C23" }}>500+</h2>
-              <p style={{ margin: 0, color: "#5c4a3f" }}>Craftsmen</p>
-            </div>
-
-            <div>
-              <h2 style={{ margin: 0, color: "#3E2C23" }}>2K+</h2>
-              <p style={{ margin: 0, color: "#5c4a3f" }}>Happy Customers</p>
-            </div>
-
-            <div>
-              <h2 style={{ margin: 0, color: "#3E2C23" }}>10+</h2>
-              <p style={{ margin: 0, color: "#5c4a3f" }}>Categories</p>
-            </div>
-          </div>
         </div>
 
-        <div
+        {/* QUICK ACTIONS */}
+        <h2
           style={{
-            flex: 1,
-            minHeight: "420px",
-            borderRadius: "26px",
-            background:
-              "linear-gradient(135deg, #3E2C23, #8B5E3C, #E67E22)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            boxShadow: "0 15px 40px rgba(0,0,0,0.22)",
-            color: "white",
-            textAlign: "center",
-            padding: "30px",
+            color: "#3E2C23",
+            marginBottom: "20px",
           }}
         >
-          <div>
-          <img
-            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
-            alt="craftsman"
-            style={{
-              width: "100%",
-              height: "320px",
-              objectFit: "cover",
-              borderRadius: "20px",
-              marginBottom: "20px",
-              boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
-            }}
-          />
-            <h2 style={{ fontSize: "34px", marginBottom: "15px" }}>
-              Professional Services
-            </h2>
-            <p style={{ fontSize: "18px", lineHeight: "1.6" }}>
-              Connect with trusted craftsmen and complete your project with
-              confidence.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section
-        style={{
-          backgroundColor: "white",
-          padding: "60px 40px",
-          textAlign: "center",
-        }}
-      >
-        <p style={{ color: "#A85D20", fontWeight: "bold" }}>OUR SERVICES</p>
-
-        <h2 style={{ fontSize: "36px", color: "#3E2C23" }}>
-          What can we help you with?
+          Quick Actions
         </h2>
 
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(auto-fit,minmax(220px,1fr))",
             gap: "20px",
-            flexWrap: "wrap",
-            marginTop: "35px",
+            marginBottom: "50px",
           }}
         >
-          {services.map((service) => (
-            <div
-              key={service.title}
-              style={{
-                width: "155px",
-                padding: "25px 15px",
-                backgroundColor: "#FFFDF9",
-                borderRadius: "16px",
-                border: "1px solid #EADBC8",
-                boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-              }}
-            >
-              <div style={{ fontSize: "36px", marginBottom: "12px" }}>
-                {service.icon}
-              </div>
-              <h3 style={{ color: "#3E2C23", fontSize: "16px" }}>
-                {service.title}
-              </h3>
+          <Link
+            to="/craftsmen"
+            style={{ textDecoration: "none" }}
+          >
+            <div style={cardStyle}>
+              <h2>🔍 Browse Craftsmen</h2>
+              <p>Explore available craftsmen.</p>
             </div>
-          ))}
+          </Link>
+
+          <Link
+            to="/client-requests"
+            style={{ textDecoration: "none" }}
+          >
+            <div style={cardStyle}>
+              <h2>📋 My Requests</h2>
+              <p>Track all your requests.</p>
+            </div>
+          </Link>
+
+          <Link
+            to="/favorites"
+            style={{ textDecoration: "none" }}
+          >
+            <div style={cardStyle}>
+              <h2>❤️ Favorites</h2>
+              <p>Manage favorite craftsmen.</p>
+            </div>
+          </Link>
+
+          
         </div>
 
-        <Link
-          to="/craftsmen"
+        {/* FEATURED */}
+        <h2
           style={{
-            display: "inline-block",
-            marginTop: "35px",
-            padding: "12px 30px",
-            backgroundColor: "#A85D20",
-            color: "white",
-            textDecoration: "none",
-            borderRadius: "8px",
-            fontWeight: "bold",
+            color: "#3E2C23",
+            marginBottom: "20px",
           }}
         >
-          View All Services
-        </Link>
-      </section>
-
-      <section style={{ padding: "65px 40px", textAlign: "center" }}>
-        <p style={{ color: "#A85D20", fontWeight: "bold" }}>
-          WHY CHOOSE SAN3A?
-        </p>
-
-        <h2 style={{ fontSize: "36px", color: "#3E2C23" }}>
-          We are here to help you
+          ⭐ Featured Categories
         </h2>
 
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "40px",
-            flexWrap: "wrap",
-            marginTop: "35px",
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(auto-fit,minmax(180px,1fr))",
+            gap: "20px",
+            marginBottom: "50px",
           }}
         >
           {[
-            {
-              title: "Trusted Professionals",
-              text: "We work with verified and experienced craftsmen.",
-            },
-            {
-              title: "Fast & Reliable",
-              text: "Get your service done quickly and on time.",
-            },
-            {
-              title: "Quality Guaranteed",
-              text: "We ensure the best quality for every job.",
-            },
-          ].map((item) => (
-            <div
-              key={item.title}
-              style={{
-                width: "280px",
-                backgroundColor: "white",
-                padding: "25px",
-                borderRadius: "18px",
-                boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-              }}
-            >
-              <h3 style={{ color: "#3E2C23" }}>{item.title}</h3>
-              <p style={{ color: "#5c4a3f", lineHeight: "1.6" }}>
-                {item.text}
-              </p>
-            </div>
-          ))}
+  { icon: "⚡", name: "Electrician" },
+  { icon: "🚰", name: "Plumber" },
+  { icon: "🎨", name: "Painter" },
+  { icon: "🪚", name: "Carpenter" },
+  { icon: "❄️", name: "AC Technician" },
+  { icon: "🛠", name: "Welder" },
+].map((cat) => (
+  <Link
+    key={cat.name}
+    to={`/craftsmen?specialty=${encodeURIComponent(cat.name)}`}
+    style={{ textDecoration: "none" }}
+  >
+    <div
+      style={{
+        background: "white",
+        padding: "25px",
+        borderRadius: "18px",
+        textAlign: "center",
+        boxShadow: "0 5px 15px rgba(0,0,0,0.08)",
+        fontWeight: "600",
+        color: "#3E2C23",
+        cursor: "pointer",
+      }}
+    >
+      <div
+        style={{
+          fontSize: "28px",
+          marginBottom: "10px",
+        }}
+      >
+        {cat.icon}
+      </div>
+
+      {cat.name}
+    </div>
+  </Link>
+))}
         </div>
-      </section>
+
+        {/* STATS */}
+        <h2
+          style={{
+            color: "#3E2C23",
+            marginBottom: "20px",
+          }}
+        >
+          📊 Platform Statistics
+        </h2>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(auto-fit,minmax(220px,1fr))",
+            gap: "20px",
+          }}
+        >
+          <div style={statCard}>
+            <h1>500+</h1>
+            <p>Craftsmen</p>
+          </div>
+
+          <div style={statCard}>
+            <h1>2K+</h1>
+            <p>Happy Customers</p>
+          </div>
+
+          <div style={statCard}>
+            <h1>4.9</h1>
+            <p>Average Rating</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (user?.role === "craftsman") {
+    return (
+  <div
+    style={{
+      background: "#F8F5EF",
+      minHeight: "100vh",
+      padding: "40px",
+    }}
+  >
+    {/* HERO */}
+    <div
+      style={{
+        background:
+          "linear-gradient(135deg,#8B5E3C,#A85D20)",
+        borderRadius: "25px",
+        padding: "50px",
+        color: "white",
+        marginBottom: "40px",
+        boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+      }}
+    >
+      <h1
+        style={{
+          fontSize: "42px",
+          marginBottom: "10px",
+        }}
+      >
+        Welcome Back, {user.name} 👋
+      </h1>
+
+      <p
+        style={{
+          fontSize: "18px",
+          opacity: 0.9,
+        }}
+      >
+        Manage your profile, requests and clients easily.
+      </p>
+    </div>
+
+    {/* STATS */}
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns:
+          "repeat(auto-fit,minmax(220px,1fr))",
+        gap: "20px",
+        marginBottom: "50px",
+      }}
+    >
+      <div style={statCard}>
+        <h1>📩</h1>
+        <h2>2</h2>
+        <p>Pending Requests</p>
+      </div>
+
+      <div style={statCard}>
+        <h1>⭐</h1>
+        <h2>4.8</h2>
+        <p>Average Rating</p>
+      </div>
+
+      <div style={statCard}>
+        <h1>💬</h1>
+        <h2>3</h2>
+        <p>Messages</p>
+      </div>
+    </div>
+
+    {/* LATEST REQUESTS */}
+    <h2
+      style={{
+        color: "#3E2C23",
+        marginBottom: "20px",
+      }}
+    >
+      📋 Latest Requests
+    </h2>
+
+    <div style={cardStyle}>
+      <h3>⚡ Electrical Repair</h3>
+      <p>Client: Ahmad</p>
+      <p>Status: Pending</p>
+    </div>
+
+    <div
+      style={{
+        ...cardStyle,
+        marginTop: "15px",
+      }}
+    >
+      <h3>🎨 Painting Service</h3>
+      <p>Client: Omar</p>
+      <p>Status: Accepted</p>
+    </div>
+
+    {/* REVIEWS */}
+    <h2
+      style={{
+        color: "#3E2C23",
+        marginTop: "50px",
+        marginBottom: "20px",
+      }}
+    >
+      ⭐ Latest Reviews
+    </h2>
+
+    <div style={cardStyle}>
+      <h3>⭐⭐⭐⭐⭐</h3>
+      <p>
+        Great service and very professional.
+      </p>
+    </div>
+
+    <div
+      style={{
+        ...cardStyle,
+        marginTop: "15px",
+      }}
+    >
+      <h3>⭐⭐⭐⭐</h3>
+      <p>
+        Fast response and fair pricing.
+      </p>
+    </div>
+
+    {/* QUICK ACTIONS */}
+    <h2
+      style={{
+        color: "#3E2C23",
+        marginTop: "50px",
+        marginBottom: "20px",
+      }}
+    >
+      ⚡ Quick Actions
+    </h2>
+
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns:
+          "repeat(auto-fit,minmax(220px,1fr))",
+        gap: "20px",
+      }}
+    >
+      <Link
+        to="/profile"
+        style={{ textDecoration: "none" }}
+      >
+        <div style={cardStyle}>
+          <h2>🧑‍🔧 My Profile</h2>
+        </div>
+      </Link>
+
+      <Link
+        to="/requests"
+        style={{ textDecoration: "none" }}
+      >
+        <div style={cardStyle}>
+          <h2>📩 Requests</h2>
+        </div>
+      </Link>
+
+      <Link
+        to="/ratings"
+        style={{ textDecoration: "none" }}
+      >
+        <div style={cardStyle}>
+          <h2>⭐ Ratings</h2>
+        </div>
+      </Link>
+    </div>
+  </div>
+);
+  }
+
+  return (
+    <div
+      style={{
+        padding: "100px",
+        textAlign: "center",
+      }}
+    >
+      <h1>Welcome to San3a</h1>
     </div>
   );
 }
-const dashboardCard = {
-  backgroundColor: "white",
+
+const cardStyle = {
+  background: "white",
   padding: "25px",
-  borderRadius: "18px",
-  width: "280px",
+  borderRadius: "20px",
+  color: "#3E2C23",
+  boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+  transition: "0.3s",
+};
+
+const statCard = {
+  background: "white",
+  padding: "30px",
+  borderRadius: "20px",
+  textAlign: "center",
   boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
   color: "#3E2C23",
-  lineHeight: "1.6",
 };
 
 export default Home;

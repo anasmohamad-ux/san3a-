@@ -15,8 +15,10 @@ function CraftsmanPage() {
   useEffect(() => {
     if (!id) return;
     api.get(`/api/users/${id}`)
-      .then(res => setCraftsman(res.data.data))
-      .catch(() => setCraftsman(null))
+.then(res => {
+  console.log(res.data.data);
+  setCraftsman(res.data.data);
+})      .catch(() => setCraftsman(null))
       .finally(() => setLoading(false));
   }, [id]);
 
