@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
+import bgImage from "../assets/backgsan3a.jpg";
+import logoImage from "../assets/logo san3a.jpg";
+
 function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -12,6 +15,7 @@ function Login() {
 
   const handleLogin = async () => {
     setError("");
+
     try {
       await login(email, password);
       navigate("/");
@@ -21,56 +25,157 @@ function Login() {
       } else {
         setError("Login failed. Please try again.");
       }
+
       console.error(err.response?.data || err.message);
     }
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh", backgroundColor: "#F5F0E6" }}>
-      <div style={{ width: "300px", padding: "25px", borderRadius: "10px", backgroundColor: "white", boxShadow: "0 0 15px rgba(0,0,0,0.1)" }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "40px 80px",
+      }}
+    >
+      {/* Left Side Login */}
+      <div
+        style={{
+          width: "450px",
+          background: "rgba(255,255,255,0.96)",
+          padding: "35px",
+          borderRadius: "20px",
+          boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+        }}
+      >
         <div style={{ marginBottom: "20px" }}>
-  <button
-    onClick={() => navigate("/")}
-    style={{
-      backgroundColor: "#d66d1d",
-      color: "white",
-      border: "none",
-      padding: "8px 16px",
-      borderRadius: "8px",
-      cursor: "pointer",
-      fontWeight: "bold",
-    }}
-  >
-    ← Back
-  </button>
-</div>
+          <button
+            onClick={() => navigate("/")}
+            style={{
+              backgroundColor: "#8B4513",
+              color: "white",
+              border: "none",
+              padding: "8px 16px",
+              borderRadius: "8px",
+              cursor: "pointer",
+              fontWeight: "bold",
+            }}
+          >
+            ← Back
+          </button>
+        </div>
 
-        <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Login</h2>
+        <h1
+          style={{
+            textAlign: "center",
+            marginBottom: "25px",
+            color: "#4E2C1E",
+          }}
+        >
+          Login
+        </h1>
 
         {error && (
-          <p style={{ color: "red", fontSize: "13px", marginBottom: "10px", textAlign: "center" }}>
+          <p
+            style={{
+              color: "red",
+              textAlign: "center",
+              marginBottom: "15px",
+            }}
+          >
             {error}
           </p>
         )}
 
-        <input type="email" placeholder="Email" value={email}
+        <label>Email</label>
+        <input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
-          style={{ width: "100%", padding: "10px", marginBottom: "15px", borderRadius: "6px", border: "1px solid #ccc" }} />
+          style={{
+            width: "100%",
+            padding: "12px",
+            marginBottom: "15px",
+            borderRadius: "8px",
+            border: "1px solid #ccc",
+          }}
+        />
 
-        <input type="password" placeholder="Password" value={password}
+        <label>Password</label>
+        <input
+          type="password"
+          placeholder="Enter your password"
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
-          style={{ width: "100%", padding: "10px", marginBottom: "20px", borderRadius: "6px", border: "1px solid #ccc" }} />
+          style={{
+            width: "100%",
+            padding: "12px",
+            marginBottom: "20px",
+            borderRadius: "8px",
+            border: "1px solid #ccc",
+          }}
+        />
 
-        <button onClick={handleLogin}
-          style={{ width: "100%", padding: "10px", backgroundColor: "#E67E22", color: "white", border: "none", borderRadius: "6px", cursor: "pointer" }}>
+        <button
+          onClick={handleLogin}
+          style={{
+            width: "100%",
+            padding: "14px",
+            backgroundColor: "#8B4513",
+            color: "white",
+            border: "none",
+            borderRadius: "10px",
+            cursor: "pointer",
+            fontWeight: "bold",
+            fontSize: "16px",
+          }}
+        >
           Login
         </button>
 
-        <p style={{ textAlign: "center", marginTop: "15px", fontSize: "13px" }}>
+        <p
+          style={{
+            textAlign: "center",
+            marginTop: "15px",
+          }}
+        >
           Don't have an account?{" "}
-          <a href="/register" style={{ color: "#E67E22" }}>Register</a>
+          <a
+            href="/register"
+            style={{
+              color: "#8B4513",
+              fontWeight: "bold",
+            }}
+          >
+            Register
+          </a>
         </p>
+      </div>
 
+      {/* Right Side Logo */}
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <img
+          src={logoImage}
+          alt="San3a Logo"
+          style={{
+            width: "650px",
+            maxWidth: "90%",
+            borderRadius: "35px",
+          }}
+        />
       </div>
     </div>
   );
