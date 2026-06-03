@@ -35,12 +35,30 @@ class ServiceRepository implements ServiceRepositoryInterface
 
     public function create(int $craftsmanId, array $data)
     {
-        return Service::create(array_merge($data, ['craftsman_id' => $craftsmanId]));
+        $image = null;
+        if (!empty($data['image'])) {
+            $image = $data['image']->store('services', 'public');
+        }
+
+        return Service::create([
+            'craftsman_id' => $craftsmanId,
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'category' => $data['category'],
+            'price_min' => $data['price_min'],
+            'price_max' => $data['price_max'],
+            'image' => $image,
+        ]);
     }
 
     public function update(int $id, array $data)
     {
         $service = Service::findOrFail($id);
+
+        if (!empty($data['image'])) {
+            $data['image'] = $data['image']->store('services', 'public');
+        }
+
         $service->update($data);
         return $service->fresh();
     }

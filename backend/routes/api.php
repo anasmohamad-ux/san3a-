@@ -54,5 +54,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/services/{id}', [ServiceController::class, 'destroy']);
         Route::put('/availability', [UserController::class, 'setAvailability']);
         Route::put('/bookings/{id}/status', [BookingController::class, 'updateStatus']);
+        Route::post('/services/{id}/image', [ServiceController::class, 'uploadImage']);
     });
 });

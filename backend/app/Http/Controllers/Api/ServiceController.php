@@ -56,4 +56,17 @@ class ServiceController extends Controller
 
         return response()->json(['message' => 'Service deleted successfully.']);
     }
+    // Upload image for a service
+    public function uploadImage(Request $request, int $id)
+    {
+        $request->validate(['image' => 'required|image|max:2048']);
+
+        $service = \App\Models\Service::findOrFail($id);
+        abort_if($service->craftsman_id !== $request->user()->id, 403, 'Not your service.');
+
+        $path = $request->file('image')->store('services', 'public');
+        $service->update(['image' => $path]);
+
+        return new \App\Http\Resources\ServiceResource($service->fresh());
+    }
 }

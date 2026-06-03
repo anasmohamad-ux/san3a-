@@ -15,6 +15,7 @@ import Profile from "./pages/Profile";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Chat from "./pages/Chat";
 import Inbox from "./pages/Inbox";
+import UploadPhoto from "./pages/UploadPhoto";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/inbox" element={<Inbox />} />
         <Route path="/chat/:id" element={<Chat />} />
+        <Route path="/upload-photo" element={<UploadPhoto />} />
       </Route>
 
     </Routes>
