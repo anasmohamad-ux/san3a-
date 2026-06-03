@@ -368,16 +368,161 @@ function Home() {
 );
   }
 
-  return (
+ return (
+  <div
+    style={{
+      minHeight: "100vh",
+      background: "#F8F5EF",
+      padding: "60px",
+    }}
+  >
     <div
       style={{
-        padding: "100px",
-        textAlign: "center",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: "50px",
+        flexWrap: "wrap",
       }}
     >
-      <h1>Welcome to San3a</h1>
+      <div style={{ flex: 1 }}>
+        <p
+          style={{
+            color: "#A85D20",
+            fontWeight: "600",
+            marginBottom: "10px",
+          }}
+        >
+          Trusted craftsmen near you
+        </p>
+
+        <h1
+          style={{
+            fontSize: "60px",
+            color: "#3E2C23",
+            lineHeight: "1.1",
+            marginBottom: "20px",
+          }}
+        >
+          Your Project,
+          <br />
+          Our Craftsmen
+        </h1>
+
+        <p
+          style={{
+            fontSize: "18px",
+            color: "#666",
+            maxWidth: "500px",
+            marginBottom: "30px",
+          }}
+        >
+          Find skilled professionals for any service you need.
+        </p>
+
+        <div
+          style={{
+            display: "flex",
+            gap: "15px",
+            marginBottom: "40px",
+          }}
+        >
+          <Link
+            to="/register"
+            style={{
+              background: "#A85D20",
+              color: "white",
+              padding: "12px 25px",
+              borderRadius: "12px",
+              textDecoration: "none",
+              fontWeight: "bold",
+            }}
+          >
+            Get Started
+          </Link>
+
+          <Link
+            to="/craftsmen"
+            style={{
+              border: "2px solid #A85D20",
+              color: "#A85D20",
+              padding: "12px 25px",
+              borderRadius: "12px",
+              textDecoration: "none",
+              fontWeight: "bold",
+            }}
+          >
+            Browse Services
+          </Link>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            gap: "40px",
+            flexWrap: "wrap",
+          }}
+        >
+          <div>
+            <h3 style={{ color: "#A85D20" }}>500+</h3>
+            <p>Skilled Workers</p>
+          </div>
+
+          <div>
+            <h3 style={{ color: "#A85D20" }}>1K+</h3>
+            <p>Happy Clients</p>
+          </div>
+
+          <div>
+            <h3 style={{ color: "#A85D20" }}>100%</h3>
+            <p>Trusted</p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        style={{
+          flex: 1,
+          background:
+            "linear-gradient(135deg,#8B5E3C,#A85D20)",
+          padding: "25px",
+          borderRadius: "25px",
+          boxShadow:
+            "0 15px 40px rgba(0,0,0,0.15)",
+        }}
+      >
+        <img
+          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
+          alt="Craftsmen"
+          style={{
+            width: "100%",
+            borderRadius: "20px",
+            marginBottom: "20px",
+          }}
+        />
+
+        <h3
+          style={{
+            color: "white",
+            textAlign: "center",
+          }}
+        >
+          Professional Services
+        </h3>
+
+        <p
+          style={{
+            color: "#f5f5f5",
+            textAlign: "center",
+          }}
+        >
+          Connect with trusted craftsmen and
+          complete your project with confidence.
+        </p>
+      </div>
     </div>
-  );
+  </div>
+);
 }
 
 const cardStyle = {
