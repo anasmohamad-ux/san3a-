@@ -9,7 +9,7 @@ class ServiceRepository implements ServiceRepositoryInterface
 {
     public function all(array $filters = [])
     {
-        return Service::with('craftsman')
+        return Service::with(['craftsman', 'images'])
             ->where('is_active', true)
             ->when(
                 $filters['category'] ?? null,
@@ -23,8 +23,7 @@ class ServiceRepository implements ServiceRepositoryInterface
                 $filters['rating'] ?? null,
                 fn($q, $v) => $q->whereHas(
                     'craftsman',
-                    fn($q) =>
-                    $q->whereRaw(
+                    fn($q) => $q->whereRaw(
                         '(SELECT COALESCE(AVG(rating),0) FROM reviews WHERE craftsman_id = users.id) >= ?',
                         [$v]
                     )
@@ -35,30 +34,28 @@ class ServiceRepository implements ServiceRepositoryInterface
 
     public function create(int $craftsmanId, array $data)
     {
-        $image = null;
-        if (!empty($data['image'])) {
-            $image = $data['image']->store('services', 'public');
-        }
-
-        return Service::create([
+        $service = Service::create([
             'craftsman_id' => $craftsmanId,
             'name' => $data['name'],
             'description' => $data['description'],
             'category' => $data['category'],
             'price_min' => $data['price_min'],
             'price_max' => $data['price_max'],
-            'image' => $image,
         ]);
+
+        if (!empty($data['images'])) {
+            foreach ($data['images'] as $image) {
+                $path = $image->store('services', 'public');
+                $service->images()->create(['image' => $path]);
+            }
+        }
+
+        return $service->load('images');
     }
 
     public function update(int $id, array $data)
     {
         $service = Service::findOrFail($id);
-
-        if (!empty($data['image'])) {
-            $data['image'] = $data['image']->store('services', 'public');
-        }
-
         $service->update($data);
         return $service->fresh();
     }

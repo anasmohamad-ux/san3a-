@@ -17,8 +17,9 @@ class Service extends Model
         'price_min',
         'price_max',
         'is_active',
+        'rating',
+        'image',
     ];
-
     protected $casts = [
         'is_active' => 'boolean',
         'price_min' => 'float',
@@ -33,5 +34,9 @@ class Service extends Model
     public function bookings()
     {
         return $this->hasMany(Booking::class);
+    }
+    public function images()
+    {
+        return $this->hasMany(ServiceImage::class);
     }
 }

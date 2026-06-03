@@ -28,12 +28,15 @@ class ServiceController extends Controller
     // US-08: Add service (craftsman only)
     public function store(StoreServiceRequest $request)
     {
+        $data = $request->validated();
+        $data['images'] = $request->file('images') ?? [];
+
         $service = $this->serviceRepo->create(
             $request->user()->id,
-            $request->validated()
+            $data
         );
 
-        return new ServiceResource($service);
+        return new \App\Http\Resources\ServiceResource($service);
     }
 
     // US-09: Update service
@@ -68,5 +71,14 @@ class ServiceController extends Controller
         $service->update(['image' => $path]);
 
         return new \App\Http\Resources\ServiceResource($service->fresh());
+    }
+    public function myServices(Request $request)
+    {
+        $services = \App\Models\Service::with('images')
+            ->where('craftsman_id', $request->user()->id)
+            ->latest()
+            ->get();
+
+        return \App\Http\Resources\ServiceResource::collection($services);
     }
 }

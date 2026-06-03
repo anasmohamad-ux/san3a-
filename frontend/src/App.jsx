@@ -46,6 +46,7 @@ function App() {
         <Route path="/inbox" element={<Inbox />} />
         <Route path="/chat/:id" element={<Chat />} />
         <Route path="/upload-photo" element={<UploadPhoto />} />
+        <Route path="/profile" element={<Profile />} />
       </Route>
 
     </Routes>

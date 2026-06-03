@@ -16,7 +16,12 @@ class ServiceResource extends JsonResource
             'price_min' => $this->price_min,
             'price_max' => $this->price_max,
             'is_active' => $this->is_active,
-            'image' => $this->image ? asset('storage/' . $this->image) : null,
+            'rating' => $this->rating,
+            'images' => $this->whenLoaded(
+                'images',
+                fn() =>
+                $this->images->map(fn($img) => asset('storage/' . $img->image))
+            ),
             'craftsman' => new UserResource($this->whenLoaded('craftsman')),
         ];
     }
