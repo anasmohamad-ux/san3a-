@@ -122,7 +122,7 @@ function Header() {
             fontSize: "16px",
           }}
         >
-          💬 Chat
+          Chats
         </button>
 
         {user ? (
