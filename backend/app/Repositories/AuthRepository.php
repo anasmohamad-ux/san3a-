@@ -18,6 +18,7 @@ class AuthRepository implements AuthRepositoryInterface
             'role' => $data['role'],
             'specialty' => $data['specialty'] ?? null,
             'experience_years' => $data['experience_years'] ?? null,
+            'city' => $data['city'] ?? null,
         ]);
 
         // handle photo upload if provided

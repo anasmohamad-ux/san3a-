@@ -13,6 +13,7 @@ function Craftsmen() {
   const [search, setSearch] = useState(specialtyFilter);
   const [debouncedSearch, setDebouncedSearch] = useState(specialtyFilter);
   const [craftsmen, setCraftsmen] = useState([]);
+  const [cityFilter, setCityFilter] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -85,16 +86,55 @@ function Craftsmen() {
           ← Back to Home
         </button>
       </div>
+          <div
+  style={{
+    display: "flex",
+    justifyContent: "center",
+    gap: "15px",
+    marginBottom: "20px",
+    alignItems: "center",
+  }}
+>
+  <input
+    type="text"
+    placeholder="Search by name or specialty..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    className="search-input"
+    style={{ maxWidth: "500px" }}
+  />
 
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search by name or specialty..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="search-input"
-        />
-      </div>
+  <select
+    value={cityFilter}
+    onChange={(e) => setCityFilter(e.target.value)}
+    style={{
+
+      width: "140px",
+      flex: "none",
+      padding: "8px",
+      borderRadius: "10px",
+      border: "1px solid #ccc",
+      minWidth: "100px",
+      cursor: "pointer",
+      fontSize: "13px",
+    }}
+  >
+    <option value="">All Cities</option>
+    <option value="Amman">Amman</option>
+    <option value="Zarqa">Zarqa</option>
+    <option value="Irbid">Irbid</option>
+    <option value="Aqaba">Aqaba</option>
+    <option value="Madaba">Madaba</option>
+    <option value="Jerash">Jerash</option>
+    <option value="Ajloun">Ajloun</option>
+    <option value="Mafraq">Mafraq</option>
+    <option value="Karak">Karak</option>
+    <option value="Balqa">Balqa</option>
+    <option value="Tafilah">Tafilah</option>
+    <option value="Ma'an">Ma'an</option>
+  </select>
+</div>
+      
 
       {loading ? (
         <div className="craftsmen-grid">
@@ -146,8 +186,13 @@ function Craftsmen() {
       ) : (
         <div className="craftsmen-grid">
           {craftsmen.length > 0 ? (
-            craftsmen.map((c) => (
-              <div
+          craftsmen
+            .filter(
+              (c) =>
+                cityFilter === "" ||
+                c.city === cityFilter
+            )
+            .map((c) => (              <div
                 key={c.id}
                 className="craftsmen-card"
               >

@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useState, useEffect, useRef } from "react";
 import api from "../api/axios";
+import logo from "../assets/logo san3a.jpg";
 
 function Header() {
   const { user, logout } = useAuth();
@@ -104,8 +105,28 @@ function Header() {
     }}>
 
       {/* LEFT SIDE - LOGO */}
-      <h2 style={{ margin: 0 }}>san3a</h2>
+{/* LEFT SIDE - LOGO */}
 
+{/* LEFT SIDE - LOGO */}
+
+<div
+  style={{
+    display: "flex",
+    alignItems: "center",
+    gap: "30px",
+  }}
+>
+  <img
+    src={logo}
+    alt="San3a Logo"
+    style={{
+      height: "65px",
+      objectFit: "contain",
+      width: "200px",
+    }}
+  />
+  
+</div>
       {/* NAVIGATION */}
       <nav style={{ display: "flex", gap: "25px", alignItems: "center" }}>
         <NavLink to="/" style={linkStyle}>Home page</NavLink>

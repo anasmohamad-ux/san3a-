@@ -17,6 +17,7 @@ function Register() {
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [specialty, setSpecialty] = useState("");
   const [experienceYears, setExperienceYears] = useState("");
+  const [city, setCity] = useState("");
   const [profileImage, setProfileImage] = useState(null);
   const [errors, setErrors] = useState({});
 
@@ -35,6 +36,7 @@ function Register() {
       if (role === "craftsman") {
         formData.append("specialty", specialty);
         formData.append("experience_years", experienceYears);
+        formData.append("city", city);
         if (profileImage) {
           formData.append("photo", profileImage);
         }
@@ -162,7 +164,31 @@ return (
               borderRadius: "8px",
             }}
           />
-
+          <label>City</label>
+<select
+  value={city}
+  onChange={(e) => setCity(e.target.value)}
+  style={{
+    width: "100%",
+    padding: "12px",
+    marginBottom: "10px",
+    borderRadius: "8px",
+  }}
+>
+  <option value="">Select City</option>
+  <option value="Amman">Amman</option>
+  <option value="Zarqa">Zarqa</option>
+  <option value="Irbid">Irbid</option>
+  <option value="Aqaba">Aqaba</option>
+  <option value="Madaba">Madaba</option>
+  <option value="Jerash">Jerash</option>
+  <option value="Ajloun">Ajloun</option>
+  <option value="Mafraq">Mafraq</option>
+  <option value="Karak">Karak</option>
+  <option value="Balqa">Balqa</option>
+  <option value="Tafilah">Tafilah</option>
+  <option value="Ma'an">Ma'an</option>
+</select>
           <label>Profile Image</label>
           <input
             type="file"

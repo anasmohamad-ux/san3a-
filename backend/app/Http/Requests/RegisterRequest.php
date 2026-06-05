@@ -20,6 +20,7 @@ class RegisterRequest extends FormRequest
             'role' => 'required|in:client,craftsman',
             'specialty' => 'nullable|string|max:100',
             'experience_years' => 'nullable|integer|min:0|max:60',
+            'city' => 'nullable|string|max:100',
             'photo' => 'nullable|image|max:2048',
         ];
     }
