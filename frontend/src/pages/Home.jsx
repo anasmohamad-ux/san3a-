@@ -519,9 +519,149 @@ function Home() {
           Connect with trusted craftsmen and
           complete your project with confidence.
         </p>
+        
+        
       </div>
     </div>
+    {/* OUR SERVICES */}
+
+<div
+  style={{
+    marginTop: "80px",
+    textAlign: "center",
+  }}
+>
+  <p
+    style={{
+      color: "#A85D20",
+      fontSize: "13px",
+      fontWeight: "bold",
+      letterSpacing: "1px",
+      marginBottom: "10px",
+    }}
+  >
+    OUR SERVICES
+  </p>
+
+  <h2
+    style={{
+      fontSize: "42px",
+      color: "#3E2C23",
+      marginBottom: "40px",
+    }}
+  >
+    What can we help you with?
+  </h2>
+
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))",
+      gap: "20px",
+      marginBottom: "40px",
+    }}
+  >
+    {[
+      {
+        icon: "⚡",
+        title: "Electrical Services",
+        specialty: "Electrician",
+      },
+      {
+        icon: "🪚",
+        title: "Carpentry",
+        specialty: "Carpenter",
+      },
+      {
+        icon: "🔧",
+        title: "Plumbing",
+        specialty: "Plumber",
+      },
+      {
+        icon: "🎨",
+        title: "Painting",
+        specialty: "Painter",
+      },
+      {
+        icon: "❄️",
+        title: "AC Services",
+        specialty: "AC Technician",
+      },
+      {
+        icon: "🛠",
+        title: "Metal Works",
+        specialty: "Welder",
+      },
+    ].map((service) => (
+      <Link
+        key={service.title}
+        to={`/craftsmen?specialty=${encodeURIComponent(
+          service.specialty
+        )}`}
+        style={{ textDecoration: "none" }}
+      >
+        <div
+          style={{
+            background: "white",
+            borderRadius: "20px",
+            padding: "30px 20px",
+            border: "1px solid #eee",
+            boxShadow: "0 5px 15px rgba(0,0,0,0.06)",
+            transition: "0.3s",
+            cursor: "pointer",
+            color: "#3E2C23",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform =
+              "translateY(-8px)";
+            e.currentTarget.style.boxShadow =
+              "0 12px 25px rgba(0,0,0,0.12)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform =
+              "translateY(0)";
+            e.currentTarget.style.boxShadow =
+              "0 5px 15px rgba(0,0,0,0.06)";
+          }}
+        >
+          <div
+            style={{
+              fontSize: "28px",
+              marginBottom: "15px",
+            }}
+          >
+            {service.icon}
+          </div>
+
+          <div
+            style={{
+              fontWeight: "600",
+            }}
+          >
+            {service.title}
+          </div>
+        </div>
+      </Link>
+    ))}
   </div>
+
+  <Link
+    to="/craftsmen"
+    style={{
+      background: "#A85D20",
+      color: "white",
+      padding: "14px 35px",
+      borderRadius: "12px",
+      textDecoration: "none",
+      fontWeight: "bold",
+      display: "inline-block",
+    }}
+  >
+    View All Services
+  </Link>
+</div>
+  </div>
+  
 );
 }
 
