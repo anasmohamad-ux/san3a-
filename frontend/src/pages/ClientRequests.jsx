@@ -1,7 +1,25 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../api/axios";
 
 function ClientRequests() {
   const navigate = useNavigate();
+
+  const [requests, setRequests] = useState([]);
+
+  useEffect(() => {
+    fetchRequests();
+  }, []);
+
+  const fetchRequests = async () => {
+    try {
+      const res = await api.get("/api/bookings");
+
+      setRequests(res.data.data || []);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div
@@ -27,19 +45,44 @@ function ClientRequests() {
         ← Back
       </button>
 
-      <h1 style={{ color: "#3E2C23" }}>My Requests</h1>
+      <h1 style={{ color: "#3E2C23" }}>
+        My Requests
+      </h1>
 
-      <div style={cardStyle}>
-        <h3>🔧 Plumbing Service</h3>
-        <p><strong>Status:</strong> Pending</p>
-        <p><strong>Craftsman:</strong> Ahmad</p>
-      </div>
+      {requests.length === 0 ? (
+        <p>No requests found</p>
+      ) : (
+        requests.map((request) => (
+          <div
+            key={request.id}
+            style={cardStyle}
+          >
+            <h3>
+              🔧 {request.service?.name}
+            </h3>
 
-      <div style={cardStyle}>
-        <h3>⚡ Electrical Repair</h3>
-        <p><strong>Status:</strong> Completed</p>
-        <p><strong>Craftsman:</strong> Omar</p>
-      </div>
+            <p>
+              <strong>Status:</strong>{" "}
+              {request.status}
+            </p>
+
+            <p>
+              <strong>Craftsman:</strong>{" "}
+              {request.craftsman?.name}
+            </p>
+
+            <p>
+              <strong>Date:</strong>{" "}
+              {request.preferred_date}
+            </p>
+
+            <p>
+              <strong>Description:</strong>{" "}
+              {request.description}
+            </p>
+          </div>
+        ))
+      )}
     </div>
   );
 }

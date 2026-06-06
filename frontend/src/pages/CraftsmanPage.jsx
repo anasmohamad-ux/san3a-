@@ -11,6 +11,36 @@ function CraftsmanPage() {
 
   const [craftsman, setCraftsman] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showBookingModal, setShowBookingModal] = useState(false);
+const [selectedService, setSelectedService] = useState("");
+const [preferredDate, setPreferredDate] = useState("");
+const [description, setDescription] = useState("");
+const [paymentMethod, setPaymentMethod] = useState("cash");
+
+const handleSendRequest = async () => {
+  try {
+    await api.post("/api/bookings", {
+      craftsman_id: craftsman.id,
+      service_id: selectedService,
+      preferred_date: preferredDate,
+      description: description,
+    });
+
+    alert("Request sent successfully!");
+
+    setShowBookingModal(false);
+    setSelectedService("");
+    setPreferredDate("");
+    setDescription("");
+  } 
+   catch (error) {
+  console.log("FULL ERROR", error);
+  console.log("RESPONSE", error.response?.data);
+
+  alert(JSON.stringify(error.response?.data));
+}
+};
+
 
   useEffect(() => {
     if (!id) return;
@@ -47,6 +77,7 @@ function CraftsmanPage() {
   );
 
   if (!craftsman) return <h2 className="not-found">Craftsman not found</h2>;
+ 
 
   return (
     <div className="craftsman-page">
@@ -126,9 +157,12 @@ function CraftsmanPage() {
     marginTop: "20px",
   }}
 >
-  <button className="craftsman-btn">
-    Request Service
-  </button>
+  <button
+  className="craftsman-btn"
+  onClick={() => setShowBookingModal(true)}
+>
+  Request Service
+</button>
 
   <button
     className="craftsman-btn"
@@ -140,6 +174,113 @@ function CraftsmanPage() {
 
         </div>
       </div>
+      {showBookingModal && (
+  <div
+    style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      background: "rgba(0,0,0,0.5)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 9999,
+    }}
+  >
+    <div
+      style={{
+        background: "#fff",
+        padding: "25px",
+        borderRadius: "15px",
+        width: "400px",
+      }}
+    >
+      <h2>Request Service</h2>
+
+      <label>Service</label>
+      <select
+        value={selectedService}
+        onChange={(e) => setSelectedService(e.target.value)}
+        style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
+      >
+        <option value="">Select Service</option>
+
+        {craftsman.services?.map((service) => (
+          <option key={service.id} value={service.id}>
+            {service.name}
+          </option>
+        ))}
+      </select>
+
+      <label>Date</label>
+      <input
+        type="date"
+        value={preferredDate}
+        onChange={(e) => setPreferredDate(e.target.value)}
+        style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
+      />
+
+      <label>Description</label>
+      <textarea
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "10px",
+          marginBottom: "15px",
+        }}
+      />
+      <label>Payment Method</label>
+
+<select
+  value={paymentMethod}
+  onChange={(e) => setPaymentMethod(e.target.value)}
+  style={{
+    width: "100%",
+    padding: "10px",
+    marginBottom: "15px",
+  }}
+>
+  <option value="cash">Cash</option>
+  <option value="visa">Visa</option>
+  <option value="mastercard">MasterCard</option>
+</select>
+
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+        }}
+      >
+        <button
+          onClick={() => setShowBookingModal(false)}
+          style={{
+            flex: 1,
+            padding: "10px",
+          }}
+        >
+          Cancel
+        </button>
+
+        <button
+  onClick={handleSendRequest}
+  style={{
+    flex: 1,
+    padding: "10px",
+    background: "#A85D20",
+    color: "#fff",
+    border: "none",
+    cursor: "pointer",
+  }}
+>
+  Send Request
+</button>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 }

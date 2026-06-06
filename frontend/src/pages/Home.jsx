@@ -154,6 +154,7 @@ function Home() {
   </Link>
 ))}
         </div>
+      
 
         {/* STATS */}
         <h2
@@ -230,6 +231,53 @@ function Home() {
       >
         Manage your profile, requests and clients easily.
       </p>
+    </div>
+    <h2
+  style={{
+    color: "#3E2C23",
+    marginBottom: "20px",
+  }}
+>
+  ⚡ Quick Actions
+</h2>
+
+    <div
+  style={{
+    display: "grid",
+    gridTemplateColumns:
+      "repeat(auto-fit,minmax(220px,1fr))",
+    gap: "20px",
+    marginBottom: "60px",
+  }}
+>
+      <Link
+        to="/profile"
+        style={{ textDecoration: "none" }}
+      >
+        <div style={cardStyle}>
+          <h2>🧑‍🔧 My Profile</h2>
+        </div>
+      </Link>
+
+      <Link
+        to="/requests"
+        style={{ textDecoration: "none" }}
+      >
+        <div style={cardStyle}>
+          <h2>📩 Requests</h2>
+        </div>
+      </Link>
+
+      <Link
+        to="/ratings"
+        style={{ textDecoration: "none" }}
+      >
+        <div style={cardStyle}>
+          <h2>⭐ Ratings</h2>
+        </div>
+      </Link>
+
+
     </div>
 
     {/* STATS */}
@@ -319,51 +367,7 @@ function Home() {
     </div>
 
     {/* QUICK ACTIONS */}
-    <h2
-      style={{
-        color: "#3E2C23",
-        marginTop: "50px",
-        marginBottom: "20px",
-      }}
-    >
-      ⚡ Quick Actions
-    </h2>
-
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns:
-          "repeat(auto-fit,minmax(220px,1fr))",
-        gap: "20px",
-      }}
-    >
-      <Link
-        to="/profile"
-        style={{ textDecoration: "none" }}
-      >
-        <div style={cardStyle}>
-          <h2>🧑‍🔧 My Profile</h2>
-        </div>
-      </Link>
-
-      <Link
-        to="/requests"
-        style={{ textDecoration: "none" }}
-      >
-        <div style={cardStyle}>
-          <h2>📩 Requests</h2>
-        </div>
-      </Link>
-
-      <Link
-        to="/ratings"
-        style={{ textDecoration: "none" }}
-      >
-        <div style={cardStyle}>
-          <h2>⭐ Ratings</h2>
-        </div>
-      </Link>
-    </div>
+    
   </div>
 );
   }
@@ -667,7 +671,7 @@ function Home() {
 
 const cardStyle = {
   background: "white",
-  padding: "25px",
+  padding: "10px",
   borderRadius: "20px",
   color: "#3E2C23",
   boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
@@ -676,7 +680,7 @@ const cardStyle = {
 
 const statCard = {
   background: "white",
-  padding: "30px",
+  padding: "15px",
   borderRadius: "20px",
   textAlign: "center",
   boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
