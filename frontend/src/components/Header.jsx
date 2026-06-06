@@ -282,32 +282,22 @@ function Header() {
       {/* CHAT MODAL */}
       {chatOpen && (
         <>
-          <div
-            onClick={() => setChatOpen(false)}
-            style={{
-              position: "fixed",
-              top: 0, left: 0,
-              width: "100vw",
-              height: "100vh",
-              background: "rgba(0,0,0,0.45)",
-              zIndex: 9998,
-            }}
-          />
+          
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
-              position: "fixed",
-              top: "50%", left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "800px",
-              height: "500px",
-              background: "#fff",
-              borderRadius: "16px",
-              boxShadow: "0 24px 60px rgba(0,0,0,0.18)",
-              zIndex: 9999,
-              display: "flex",
-              overflow: "hidden",
-            }}
+  position: "fixed",
+  top: "80px",
+  left: "20px",
+  width: "700px",
+  height: "75vh",
+  background: "#fff",
+  borderRadius: "16px",
+  boxShadow: "0 0 25px rgba(0,0,0,0.15)",
+  zIndex: 9999,
+  display: "flex",
+  overflow: "hidden",
+}}
           >
             {/* SIDEBAR */}
             <div style={{

@@ -11,6 +11,7 @@ function Home() {
   const [filters, setFilters] = useState({
     category: "",
     rating: "",
+    city: "",
     price_max: "",
   });
 
@@ -28,6 +29,11 @@ function Home() {
     api.get(`/api/services?${params.toString()}`)
       .then(res => {
         let data = res.data.data || [];
+        if (filters.city) {
+  data = data.filter(
+    (s) => s.craftsman?.city === filters.city
+  );
+}
         // sort by rating desc by default
         data = data.sort((a, b) => (b.rating || 0) - (a.rating || 0));
         // filter by max price on frontend
@@ -49,7 +55,7 @@ function Home() {
   const handleFilter = () => fetchServices();
 
   const handleReset = () => {
-    setFilters({ category: "", rating: "", price_max: "" });
+    setFilters({ category: "", rating: "", price_max: "" ,  city: "",});
     setLoading(true);
     api.get("/api/services")
       .then(res => {
@@ -79,21 +85,7 @@ function Home() {
       <div style={{ background: "#F8F5EF", minHeight: "100vh", padding: "40px" }}>
 
         {/* HERO */}
-        <div style={{
-          background: "linear-gradient(135deg,#8B5E3C,#A85D20)",
-          borderRadius: "25px",
-          padding: "40px 50px",
-          color: "white",
-          marginBottom: "36px",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
-        }}>
-          <h1 style={{ fontSize: "42px", marginBottom: "10px" }}>
-            Welcome back, {user.name} 👋
-          </h1>
-          <p style={{ fontSize: "18px", opacity: 0.9 }}>
-            Find trusted craftsmen and manage your services easily.
-          </p>
-        </div>
+        
 
         {/* FILTER BAR */}
         <div style={{
@@ -125,7 +117,54 @@ function Home() {
               {categories.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
           </div>
+                <div
+  style={{
+    display: "flex",
+    flexDirection: "column",
+    gap: "5px",
+    flex: "1",
+    minWidth: "140px",
+  }}
+>
+  <label
+    style={{
+      fontSize: "12px",
+      color: "#9e8070",
+      fontWeight: "500",
+    }}
+  >
+    City
+  </label>
 
+  <select
+    value={filters.city}
+    onChange={(e) =>
+      setFilters({ ...filters, city: e.target.value })
+    }
+    style={{
+      padding: "9px 12px",
+      borderRadius: "8px",
+      border: "1px solid #e0d0c0",
+      fontSize: "14px",
+      color: "#3d2b1f",
+      backgroundColor: "#FDFAF7",
+    }}
+  >
+    <option value="">All Cities</option>
+    <option value="Amman">Amman</option>
+    <option value="Zarqa">Zarqa</option>
+    <option value="Irbid">Irbid</option>
+    <option value="Aqaba">Aqaba</option>
+    <option value="Madaba">Madaba</option>
+    <option value="Jerash">Jerash</option>
+    <option value="Ajloun">Ajloun</option>
+    <option value="Mafraq">Mafraq</option>
+    <option value="Karak">Karak</option>
+    <option value="Balqa">Balqa</option>
+    <option value="Tafilah">Tafilah</option>
+    <option value="Ma'an">Ma'an</option>
+  </select>
+</div>
           <div style={{ display: "flex", flexDirection: "column", gap: "5px", flex: "1", minWidth: "120px" }}>
             <label style={{ fontSize: "12px", color: "#9e8070", fontWeight: "500" }}>Min Rating</label>
             <select
@@ -328,17 +367,7 @@ function Home() {
   if (user?.role === "craftsman") {
     return (
       <div style={{ background: "#F8F5EF", minHeight: "100vh", padding: "40px" }}>
-        <div style={{
-          background: "linear-gradient(135deg,#8B5E3C,#A85D20)",
-          borderRadius: "25px",
-          padding: "50px",
-          color: "white",
-          marginBottom: "40px",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
-        }}>
-          <h1 style={{ fontSize: "42px", marginBottom: "10px" }}>Welcome Back, {user.name} 👋</h1>
-          <p style={{ fontSize: "18px", opacity: 0.9 }}>Manage your profile, requests and clients easily.</p>
-        </div>
+        
 
         <h2 style={{ color: "#3E2C23", marginBottom: "20px" }}>⚡ Quick Actions</h2>
         <div style={{
