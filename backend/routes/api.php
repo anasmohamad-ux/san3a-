@@ -9,7 +9,9 @@ use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ChatbotController;
 
+Route::post('/chatbot', [ChatbotController::class, 'chat']);
 // ── Public ────────────────────────────────────────────────────
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -56,5 +58,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/bookings/{id}/status', [BookingController::class, 'updateStatus']);
         Route::post('/services/{id}/image', [ServiceController::class, 'uploadImage']);
         Route::get('/my-services', [ServiceController::class, 'myServices']);
+
     });
+    
 });

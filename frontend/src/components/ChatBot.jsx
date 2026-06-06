@@ -8,47 +8,56 @@ function ChatBot() {
     { text: "Hello 👋 I am San3a Assistant. How can I help you?", sender: "bot" },
   ]);
 
-  const getBotReply = (text) => {
-    const msg = text.toLowerCase();
 
-    if (msg.includes("register") || msg.includes("sign up")) {
-      return "You can create an account from the Register page and choose whether you are a User or Craftsman.";
-    }
 
-    if (msg.includes("login")) {
-      return "You can login using your email and password from the Login page.";
-    }
+const sendMessage = async () => {
+  if (input.trim() === "") return;
 
-    if (msg.includes("craftsman") || msg.includes("craftsmen")) {
-      return "Go to the Craftsmen page to browse available craftsmen and view their profiles.";
-    }
+  const userMessage = input;
 
-    if (msg.includes("service") || msg.includes("request")) {
-      return "Open any craftsman profile, then click Request Service to request help.";
-    }
+  setMessages((prev) => [
+    ...prev,
+    { text: userMessage, sender: "user" },
+  ]);
 
-    if (msg.includes("hello") || msg.includes("hi")) {
-      return "Hello! How can I help you today?";
-    }
+  setInput("");
 
-    return "I can help you with registration, login, finding craftsmen, or requesting a service.";
-  };
+  try {
+    const response = await fetch(
+      "http://127.0.0.1:8000/api/chatbot",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: userMessage,
+        }),
+      }
+    );
 
-  const sendMessage = () => {
-    if (input.trim() === "") return;
+    const data = await response.json();
 
-    const userMessage = input;
-    const botReply = getBotReply(userMessage);
+    const botReply =
+      data.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "Sorry, I couldn't generate a response.";
 
     setMessages((prev) => [
       ...prev,
-      { text: userMessage, sender: "user" },
       { text: botReply, sender: "bot" },
     ]);
+  } catch (error) {
+    console.error(error);
 
-    setInput("");
-  };
-
+    setMessages((prev) => [
+      ...prev,
+      {
+        text: "Failed to connect to AI assistant.",
+        sender: "bot",
+      },
+    ]);
+  }
+};
   return (
     <>
       {open && (
